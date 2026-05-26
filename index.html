@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>root@willhuang:~</title>
+    <style>
+        body { 
+            background-color: #0d1117; 
+            color: #00ff00; 
+            font-family: 'Courier New', Courier, monospace; 
+            padding: 40px 20px; 
+            line-height: 1.6;
+        }
+        .terminal { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: #010409; 
+            border: 1px solid #30363d; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,255,0,0.1); 
+        }
+        .header { 
+            background: #161b22; 
+            padding: 8px 15px; 
+            color: #8b949e; 
+            font-size: 14px; 
+            border-top-left-radius: 8px; 
+            border-top-right-radius: 8px;
+            border-bottom: 1px solid #30363d;
+        }
+        .content { 
+            padding: 20px; 
+        }
+        .prompt::before { 
+            content: "guest@willhuang:~$ "; 
+            color: #58a6ff; 
+        }
+        .command { 
+            color: #ffffff; 
+            font-weight: bold; 
+        }
+        a { 
+            color: #58a6ff; 
+            text-decoration: none; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        .directory {
+            margin-bottom: 30px;
+        }
+        .item { 
+            margin-top: 15px; 
+            border-left: 2px solid #00ff00; 
+            padding-left: 15px; 
+        }
+        .output {
+            color: #c9d1d9;
+        }
+        .highlight {
+            color: #f0883e;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">bash - 100x30</div>
+        <div class="content">
+            
+            <div class="directory">
+                <p class="prompt"><span class="command">whoami</span></p>
+                <p class="output">
+                    <strong>Will Huang</strong><br>
+                    BSc in Computer Science | Wilfrid Laurier University<br>
+                    BSc in Mathematics (Minor in CS & Stats) | University of Toronto<br>
+                    <br>
+                    Driven by system architecture, security operations, and data analysis. Experienced in blending statistical rigor with actionable software engineering.
+                </p>
+            </div>
+
+            <div class="directory">
+                <p class="prompt"><span class="command">cat ./skills.json</span></p>
+                <p class="output">
+                    {<br>
+                    &nbsp;&nbsp;<span class="highlight">"Languages"</span>: ["Python", "C", "C++", "Java", "JavaScript", "HTML", "CSS", "Swift", "R", "SQL"],<br>
+                    &nbsp;&nbsp;<span class="highlight">"Frameworks"</span>: ["PyTorch", "TensorFlow", "Pandas", "NodeJS", "ExpressJS", "React", "Bootstrap"],<br>
+                    &nbsp;&nbsp;<span class="highlight">"Tools"</span>: ["LLMs", "Git", "Docker", "MongoDB", "Linux/Unix"]<br>
+                    }
+                </p>
+            </div>
+
+            <div class="directory">
+                <p class="prompt"><span class="command">ls -la ./experience</span></p>
+                
+                <div class="item">
+                    <strong style="color:#fff;">Data Analyst @ Osiris Vertical Farm</strong> <span class="output">(Apr 2022 - Apr 2023)</span><br>
+                    <span class="output">Optimized plant health by analyzing environmental and growth data using Python, Pandas, R, and Excel. Leveraged predictive modelling and regression analysis to forecast anomalies.</span>
+                </div>
+                <div class="item">
+                    <strong style="color:#fff;">Sales Professional & Key Holder @ Michael Hill</strong> <span class="output">(May 2023 - Present)</span><br>
+                    <span class="output">Managed security protocols, staff supervision, and exceeded corporate KPIs by 20% ranking in the top 10% of regional performers.</span>
+                </div>
+            </div>
+
+            <div class="directory">
+                <p class="prompt"><span class="command">ls -la ./projects</span></p>
+                
+                <div class="item">
+                    <strong style="color:#fff;">Mini-Agentic SOC Log Parser</strong> <span class="output">(May 2026)</span><br>
+                    <span class="output"><em>Stack: Docker, Python, Gemini API</em><br>
+                    Engineered a containerized AI threat-detection agent to identify SQL injection and brute-force SSH attacks from live logs. Automated structured JSON threat-classification pipelines to trigger simulated iptables blocking rules.</span>
+                </div>
+
+                <div class="item">
+                    <strong style="color:#fff;">Stealth Keylogger</strong> <span class="output">(Dec 2025)</span><br>
+                    <span class="output"><em>Stack: Python, Low-level scripting</em><br>
+                    Developed a local monitoring application intercepting keystrokes while bypassing Windows Defender using hook managers. Analyzed endpoint vulnerabilities to document defensive mitigation strategies.</span>
+                </div>
+
+                <div class="item">
+                    <strong style="color:#fff;">Capture The Flag Competitions</strong> <span class="output">(Mar 2024)</span><br>
+                    <span class="output">Secured exploit "flags" via reverse engineering and ethical hacking workflows. Diagnosed network packet data to isolate attack signatures using log analysis tools.</span>
+                </div>
+            </div>
+
+            <div class="directory">
+                <p class="prompt"><span class="command">cat ./certifications.txt</span></p>
+                <p class="output">
+                    > Google Cybersecurity Professional Certificates (Network Security, Security Risks, Foundations)<br>
+                    > Deep Learning & AI (TensorFlow Skill Path, Artificial Intelligence A-Z)<br>
+                    > Cybersecurity & Ethical Hacking (The Complete Cyber Security Course, Learn Ethical Hacking)<br>
+                    > Software Development (SQL Bootcamp, Beginning C++, React, Swift)<br>
+                    > Data & Economics (Data Science Foundation, Microeconomics 101)
+                </p>
+            </div>
+
+            <div class="directory">
+                <p class="prompt"><span class="command">cat ./contact.txt</span></p>
+                <p class="output">
+                    Location: Cambridge, ON<br>
+                    Email: <a href="mailto:willy0630@outlook.com">willy0630@outlook.com</a><br>
+                    LinkedIn: <a href="#">linkedin.com/in/willhuang</a><br>
+                    GitHub: <a href="#">github.com/willhuang</a>
+                </p>
+            </div>
+            
+            <p class="prompt"><span class="command blink">_</span></p>
+
+        </div>
+    </div>
+</body>
+</html>
