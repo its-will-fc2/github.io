@@ -32,6 +32,9 @@
         .content { 
             padding: 20px; 
         }
+        .prompt {
+            display: inline-block;
+        }
         .prompt::before { 
             content: "guest@willhuang:~$ "; 
             color: #58a6ff; 
@@ -39,6 +42,20 @@
         .command { 
             color: #ffffff; 
             font-weight: bold; 
+        }
+        /* The blinking cursor effect */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #00ff00;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
         a { 
             color: #58a6ff; 
@@ -50,13 +67,21 @@
         .directory {
             margin-bottom: 30px;
         }
+        /* Added class to keep directories hidden until it's their turn */
+        .hidden-row {
+            display: none;
+        }
         .item { 
             margin-top: 15px; 
             border-left: 2px solid #00ff00; 
             padding-left: 15px; 
+            opacity: 0; /* Hidden initially for JS animation */
+            transition: opacity 0.3s ease-in;
         }
         .output {
             color: #c9d1d9;
+            opacity: 0; /* Hidden initially for JS animation */
+            transition: opacity 0.3s ease-in;
         }
         .highlight {
             color: #f0883e;
@@ -66,10 +91,10 @@
 <body>
     <div class="terminal">
         <div class="header">bash - 100x30</div>
-        <div class="content">
+        <div class="content" id="terminal-content">
             
-            <div class="directory">
-                <p class="prompt"><span class="command">whoami</span></p>
+            <div class="directory hidden-row">
+                <p class="prompt"><span class="command" data-cmd="whoami"></span></p>
                 <p class="output">
                     <strong>Will Huang</strong><br>
                     BSc in Computer Science | Wilfrid Laurier University<br>
@@ -79,8 +104,8 @@
                 </p>
             </div>
 
-            <div class="directory">
-                <p class="prompt"><span class="command">cat ./skills.json</span></p>
+            <div class="directory hidden-row">
+                <p class="prompt"><span class="command" data-cmd="cat ./skills.json"></span></p>
                 <p class="output">
                     {<br>
                     &nbsp;&nbsp;<span class="highlight">"Languages"</span>: ["Python", "C", "C++", "Java", "JavaScript", "HTML", "CSS", "Swift", "R", "SQL"],<br>
@@ -90,8 +115,8 @@
                 </p>
             </div>
 
-            <div class="directory">
-                <p class="prompt"><span class="command">ls -la ./experience</span></p>
+            <div class="directory hidden-row">
+                <p class="prompt"><span class="command" data-cmd="ls -la ./experience"></span></p>
                 
                 <div class="item">
                     <strong style="color:#fff;">Data Analyst @ Osiris Vertical Farm</strong> <span class="output">(Apr 2022 - Apr 2023)</span><br>
@@ -103,8 +128,8 @@
                 </div>
             </div>
 
-            <div class="directory">
-                <p class="prompt"><span class="command">ls -la ./projects</span></p>
+            <div class="directory hidden-row">
+                <p class="prompt"><span class="command" data-cmd="ls -la ./projects"></span></p>
                 
                 <div class="item">
                     <strong style="color:#fff;">Mini-Agentic SOC Log Parser</strong> <span class="output">(May 2026)</span><br>
@@ -124,8 +149,8 @@
                 </div>
             </div>
 
-            <div class="directory">
-                <p class="prompt"><span class="command">cat ./certifications.txt</span></p>
+            <div class="directory hidden-row">
+                <p class="prompt"><span class="command" data-cmd="cat ./certifications.txt"></span></p>
                 <p class="output">
                     > Google Cybersecurity Professional Certificates (Network Security, Security Risks, Foundations)<br>
                     > Deep Learning & AI (TensorFlow Skill Path, Artificial Intelligence A-Z)<br>
@@ -135,8 +160,8 @@
                 </p>
             </div>
 
-            <div class="directory">
-                <p class="prompt"><span class="command">cat ./contact.txt</span></p>
+            <div class="directory hidden-row">
+                <p class="prompt"><span class="command" data-cmd="cat ./contact.txt"></span></p>
                 <p class="output">
                     Location: Cambridge, ON<br>
                     Email: <a href="mailto:willy0630@outlook.com">willy0630@outlook.com</a><br>
@@ -145,9 +170,56 @@
                 </p>
             </div>
             
-            <p class="prompt"><span class="command blink">_</span></p>
+            <p class="prompt hidden-row" id="final-prompt"><span class="command"></span></p>
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const directories = document.querySelectorAll('.directory');
+            const finalPrompt = document.getElementById('final-prompt');
+            
+            // Helper function to create a delay
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            
+            // Create the cursor element
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+
+            for (const dir of directories) {
+                // Unhide the current directory block
+                dir.classList.remove('hidden-row');
+                
+                const commandSpan = dir.querySelector('.command');
+                const fullCommand = commandSpan.getAttribute('data-cmd');
+                
+                // Attach cursor to the current command line
+                commandSpan.after(cursor);
+
+                // Type out the command
+                for (let i = 0; i < fullCommand.length; i++) {
+                    commandSpan.textContent += fullCommand.charAt(i);
+                    await delay(50); // Adjust this value to make typing faster or slower
+                }
+
+                // Brief pause after typing before showing output
+                await delay(300);
+
+                // Reveal the outputs associated with this command
+                const outputs = dir.querySelectorAll('.output, .item');
+                outputs.forEach(el => {
+                    el.style.opacity = '1';
+                });
+
+                // Pause before moving to the next command sequence
+                await delay(1000);
+            }
+
+            // Unhide the final prompt and move the cursor there
+            finalPrompt.classList.remove('hidden-row');
+            finalPrompt.querySelector('.command').after(cursor);
+        });
+    </script>
 </body>
 </html>
