@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@willhuang:~</title>
+    
+    <meta name="description" content="Will Huang - Computer Science & Cybersecurity Portfolio. Focused on system architecture, security operations, and agentic AI.">
+    <meta property="og:title" content="Will Huang | Cyber Portfolio">
+    <meta property="og:description" content="Computer Science & Cybersecurity Portfolio showcasing SOC tools, keyloggers, and data analysis.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://willhuang.github.io"> <title>root@willhuang:~</title>
+    
     <style>
+        /* Base Terminal Styling */
         body { 
             background-color: #0d1117; 
             color: #00ff00; 
             font-family: 'Courier New', Courier, monospace; 
             padding: 40px 20px; 
             line-height: 1.6;
+            margin: 0;
         }
         .terminal { 
             max-width: 900px; 
@@ -19,21 +27,23 @@
             border: 1px solid #30363d; 
             border-radius: 8px; 
             box-shadow: 0 4px 15px rgba(0,255,0,0.1); 
+            overflow: hidden;
         }
         .header { 
             background: #161b22; 
             padding: 8px 15px; 
             color: #8b949e; 
             font-size: 14px; 
-            border-top-left-radius: 8px; 
-            border-top-right-radius: 8px;
             border-bottom: 1px solid #30363d;
         }
         .content { 
             padding: 20px; 
+            max-height: 80vh;
+            overflow-y: auto;
         }
         .prompt {
             display: inline-block;
+            margin-top: 0;
         }
         .prompt::before { 
             content: "guest@willhuang:~$ "; 
@@ -43,7 +53,8 @@
             color: #ffffff; 
             font-weight: bold; 
         }
-        /* The blinking cursor effect */
+        
+        /* Blinking Cursor Animation */
         .cursor {
             display: inline-block;
             width: 8px;
@@ -57,6 +68,7 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
+        
         a { 
             color: #58a6ff; 
             text-decoration: none; 
@@ -67,7 +79,6 @@
         .directory {
             margin-bottom: 30px;
         }
-        /* Added class to keep directories hidden until it's their turn */
         .hidden-row {
             display: none;
         }
@@ -75,18 +86,64 @@
             margin-top: 15px; 
             border-left: 2px solid #00ff00; 
             padding-left: 15px; 
-            opacity: 0; /* Hidden initially for JS animation */
+            opacity: 0; 
             transition: opacity 0.3s ease-in;
         }
         .output {
             color: #c9d1d9;
-            opacity: 0; /* Hidden initially for JS animation */
+            opacity: 0; 
             transition: opacity 0.3s ease-in;
+            margin-top: 5px;
         }
         .highlight {
             color: #f0883e;
         }
+
+        /* Custom WebKit Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #010409; 
+            border-left: 1px solid #30363d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #30363d; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #58a6ff; 
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            body { 
+                padding: 10px; 
+                font-size: 14px; 
+            }
+            .terminal { 
+                border-radius: 4px; 
+            }
+            .header { 
+                font-size: 12px; 
+                padding: 5px 10px; 
+            }
+            .content { 
+                padding: 10px; 
+            }
+            .item {
+                padding-left: 10px;
+            }
+        }
     </style>
+
+    <noscript>
+        <style>
+            .hidden-row { display: block !important; }
+            .item, .output { opacity: 1 !important; }
+            .cursor { display: none !important; }
+        </style>
+    </noscript>
 </head>
 <body>
     <div class="terminal">
@@ -165,8 +222,8 @@
                 <p class="output">
                     Location: Cambridge, ON<br>
                     Email: <a href="mailto:willy0630@outlook.com">willy0630@outlook.com</a><br>
-                    LinkedIn: <a href="#">linkedin.com/in/willhuang</a><br>
-                    GitHub: <a href="#">github.com/willhuang</a>
+                    LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a><br>
+                    GitHub: <a href="https://github.com/willhuang" target="_blank">github.com/willhuang</a>
                 </p>
             </div>
             
@@ -200,7 +257,7 @@
                 // Type out the command
                 for (let i = 0; i < fullCommand.length; i++) {
                     commandSpan.textContent += fullCommand.charAt(i);
-                    await delay(50); // Adjust this value to make typing faster or slower
+                    await delay(50); // Typing speed
                 }
 
                 // Brief pause after typing before showing output
@@ -212,6 +269,10 @@
                     el.style.opacity = '1';
                 });
 
+                // Auto-scroll to bottom of terminal content as it builds
+                const terminalContent = document.getElementById('terminal-content');
+                terminalContent.scrollTop = terminalContent.scrollHeight;
+
                 // Pause before moving to the next command sequence
                 await delay(1000);
             }
@@ -219,6 +280,10 @@
             // Unhide the final prompt and move the cursor there
             finalPrompt.classList.remove('hidden-row');
             finalPrompt.querySelector('.command').after(cursor);
+            
+            // Final scroll to bottom
+            const terminalContent = document.getElementById('terminal-content');
+            terminalContent.scrollTop = terminalContent.scrollHeight;
         });
     </script>
 </body>
